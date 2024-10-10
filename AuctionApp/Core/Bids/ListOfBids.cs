@@ -24,3 +24,4 @@ public class ListOfBids
         _bids.Remove(bid);
     }
 }
+    
