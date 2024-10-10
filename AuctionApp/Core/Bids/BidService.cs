@@ -1,4 +1,5 @@
-﻿using AuctionApp.Core.Interfaces;
+﻿using System.Data;
+using AuctionApp.Core.Interfaces;
 
 namespace AuctionApp.Core;
 
@@ -23,5 +24,14 @@ public class BidService : IBidService
     {
         ListOfBids lob = _bidPersistence.GetListOfBidsById(id, userName);
         return lob;
+    }
+
+    public void Add(string userName, string title)
+    {
+
+        if (userName == null) throw new DataException("Username is missing");
+        if (title == null || title.Length > 128) throw new DataException("Title issues");
+        ListOfBids lob = new ListOfBids(title, userName);
+        _bidPersistence.Save(lob);
     }
 }

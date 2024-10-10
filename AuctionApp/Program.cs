@@ -14,7 +14,7 @@ builder.Services.AddDbContext<ListOfBidsDBContext>(options => options.UseMySQL(b
 
 builder.Services.AddAutoMapper(typeof(Program));
 
-builder.Services.AddScoped<IBidPersistence, MySqlPersistence>();
+builder.Services.AddScoped<IBidPersistence, MySqlBidPersistence>();
 
 //Dependency injection of service to controller
 builder.Services.AddScoped<IBidService, BidService>();

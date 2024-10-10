@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 namespace AuctionApp.Persistence;
 
 
-public class MySqlPersistence : IBidPersistence
+public class MySqlBidPersistence : IBidPersistence
 {
 
     private readonly ListOfBidsDBContext _listOfBidsDbContext;
     private readonly IMapper _mapper;
 
-    public MySqlPersistence(ListOfBidsDBContext _listOfBidsDbContext, IMapper _mapper)
+    public MySqlBidPersistence(ListOfBidsDBContext _listOfBidsDbContext, IMapper _mapper)
     {
         this._listOfBidsDbContext = _listOfBidsDbContext;
         this._mapper = _mapper;
@@ -52,6 +52,8 @@ public class MySqlPersistence : IBidPersistence
 
     public void Save(ListOfBids listOfBids)
     {
-        throw new NotImplementedException();
+        ListOfBidsDB lobdb = _mapper.Map<ListOfBidsDB>(listOfBids);
+        _listOfBidsDbContext.ListOfBidsDbs.Add(lobdb);
+        _listOfBidsDbContext.SaveChanges();
     }
 }

@@ -26,6 +26,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Joar Gerlöv\Documents\Github\Dissys\Lab2\lab_two_dissys\AuctionApp
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Joar Gerlöv/Documents/Github/Dissys/Lab2/lab_two_dissys/AuctionApp/Views/Bid/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlkXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Joar Gerlöv/Documents/Github/Dissys/Lab2/lab_two_dissys/AuctionApp/Views/Bid/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlkXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
