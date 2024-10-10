@@ -21,6 +21,10 @@
             this.BidDate = DateTime.Now;
             this._status = Status.PENDING;
         }
+        
+        public Bid()
+        {
+        }
 
         public bool IsWinner()
         {

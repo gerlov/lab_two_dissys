@@ -1,3 +1,4 @@
+using System.Data;
 using AuctionApp.Core;
 using AuctionApp.Core.Interfaces;
 using AuctionApp.Models.Bids;
@@ -17,7 +18,7 @@ namespace AuctionApp.Controllers
         public ActionResult Index()
         {
             var userName = "Jo4r";
-            List<ListOfBids> listOfBids = _bidService.GetAllBidsList(userName);
+            List<ListOfBids> listOfBids = _bidService.GetAllBidsListByUserName(userName);
             List<ListOfBidsVm> listOfBidsVm = new List<ListOfBidsVm>();
             
             foreach (var list in listOfBids)
@@ -30,29 +31,18 @@ namespace AuctionApp.Controllers
         public ActionResult Details(int id)
         {
             var userName = "Jo4r";
-            ListOfBids listOfBids = _bidService.GetListById(id, userName);
-            if (listOfBids == null) return BadRequest();
 
-            ListDetailsVm detailsVm = ListDetailsVm.FromList(listOfBids);
-            return View(detailsVm);
-        }
-        
-        public ActionResult SetBidToWinner(int id)
-        {
-            bool success = _bidService.SetBidToWinner(id);
-            if (!success)
-                return NotFound();
-
-            return RedirectToAction("Index");
-        }
-        
-        public ActionResult SetBidToLoser(int id)
-        {
-            bool success = _bidService.SetBidToLoser(id);
-            if (!success)
-                return NotFound();
-
-            return RedirectToAction("Index");
+            try
+            {
+                ListOfBids lob = _bidService.GetListById(id, userName);
+                if (lob == null) return BadRequest();
+                ListDetailsVm detailsVm = ListDetailsVm.FromList(lob);
+                return View(detailsVm);
+            }
+            catch (DataException e)
+            {
+                return BadRequest();
+            }
         }
 
     }

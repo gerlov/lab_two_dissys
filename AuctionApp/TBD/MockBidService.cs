@@ -26,7 +26,7 @@ namespace AuctionApp.Core
             _bidList.Add(PendingBids);
         }
 
-        public List<ListOfBids> GetAllBidsList(string userName)
+        public List<ListOfBids> GetAllBidsListByUserName(string userName)
         {
             return _bidList;
         }
