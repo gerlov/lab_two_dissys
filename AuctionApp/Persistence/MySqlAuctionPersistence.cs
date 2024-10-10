@@ -25,9 +25,31 @@ public class MySqlAuctionPersistence : IAuctionPersistence
         return result;
     }
 
+    public Auction GetById(int id)
+    {
+        AuctionDb auctionDb = _dbContext.AuctionDbs.Find(id);
+        return _mapper.Map<Auction>(auctionDb);
+    }
+
+    public List<Auction> GetByUserName(string UserName)
+    {
+        List<AuctionDb> auctionDbs = _dbContext.AuctionDbs.Where(a => a.sellerName.Equals(UserName)).ToList();
+        List<Auction> result = new List<Auction>();
+        foreach (AuctionDb auctionDb in auctionDbs) result.Add(_mapper.Map<Auction>(auctionDb));
+
+        return result;
+    }
+
     public void Save(Auction auction)
     {
         _dbContext.AuctionDbs.Add(_mapper.Map<AuctionDb>(auction));
+        _dbContext.SaveChanges();
+    }
+
+    public void Update(int id, string description)
+    {
+        AuctionDb auctionDb = _dbContext.AuctionDbs.Find(id);
+        auctionDb.description = description;
         _dbContext.SaveChanges();
     }
 }

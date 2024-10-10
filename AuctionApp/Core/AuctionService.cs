@@ -17,9 +17,24 @@ public class AuctionService : IAuctionService
         return _auctionPersistence.GetAllAuctions().OrderBy(auction => auction.endDate).ToList();
     }
 
-    public void Add(string itemName, double price, string description, DateTime endDate)
+    public void Add(string itemName, double price, string description, string sellerName, DateTime endDate)
     {
-        _auctionPersistence.Save(new Auction(itemName, price, description, endDate));
+        _auctionPersistence.Save(new Auction(itemName, price, description, sellerName, endDate));
+    }
+
+    public List<Auction> GetByUserName(string userName)
+    {
+        return _auctionPersistence.GetByUserName(userName).OrderBy(auction => auction.endDate).ToList();
+    }
+    
+    public Auction GetById(int id)
+    {
+        return _auctionPersistence.GetById(id);
+    }
+
+    public void Update(int id, string description)
+    {
+        _auctionPersistence.Update(id, description);
     }
 
     /*

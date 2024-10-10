@@ -1,10 +1,12 @@
 using AuctionApp.Core;
 using AuctionApp.Core.Interfaces;
 using AuctionApp.Models.Auctions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionApp.Controllers
 {
+    [Authorize]
     [Route("Auctions")]
     public class AuctionController : Controller
     {
@@ -28,7 +30,7 @@ namespace AuctionApp.Controllers
             return View();
         }
 
-        [HttpGet("open")]
+        [HttpGet("Open")]
         public ActionResult GetAllOpenAuctions()
         {
 
@@ -40,18 +42,64 @@ namespace AuctionApp.Controllers
             return View("OpenAuctions", auctionVms);
         }
         
-        [HttpGet("create")]
+        [HttpGet("Create")]
         public ActionResult CreateAuction()
         {
             return View("CreateAuction");
         }
 
-        [HttpPost("create")]
+        [HttpPost("Create")]
         public ActionResult CreateAuction(CreateAuctionVm createAuctionVm)
         {
             try
             {
-                if (ModelState.IsValid) _auctionService.Add(createAuctionVm.itemName, createAuctionVm.price, createAuctionVm.description, createAuctionVm.endDate);
+                if (ModelState.IsValid) {
+                    _auctionService.Add(createAuctionVm.itemName, 
+                                        createAuctionVm.price, 
+                                        createAuctionVm.description, 
+                                        User.Identity.Name,
+                                        createAuctionVm.endDate);
+                    
+                }
+                return RedirectToAction("GetAllOpenAuctions");
+            }
+            catch(Exception ex) //TODO: Make exceptions more specific and informative
+            {
+                return View(createAuctionVm);
+            }
+        }
+
+        [HttpGet("MyAuctions")]
+        public ActionResult GetAllUserAuctions()
+        {
+            List<Auction> userAuctions = _auctionService.GetByUserName(User.Identity.Name);
+            
+            List<AuctionVm> auctionVms = new List<AuctionVm>();
+            foreach (Auction auction in userAuctions) auctionVms.Add(AuctionVm.FromAuction(auction));
+            
+            return View("UserAuctions", auctionVms);
+            
+        }
+        
+        [HttpGet("MyAuctions/Edit/{id}")]
+        public ActionResult EditAuction(int id)
+        {
+            Auction userAuction = _auctionService.GetById(id);
+            
+            if(userAuction == null) return NotFound();
+            if(userAuction.sellerName != User.Identity.Name) return BadRequest();
+            
+            return View("EditAuction", CreateAuctionVm.FromAuction(userAuction));
+        }
+        
+        [HttpPost("MyAuctions/Edit/{id}")]
+        public ActionResult EditAuction(int id, CreateAuctionVm createAuctionVm)
+        {
+            try
+            {
+                    //Console.WriteLine(id);
+                    _auctionService.Update(id, createAuctionVm.description);
+
                 return RedirectToAction("GetAllOpenAuctions");
             }
             catch(Exception ex) //TODO: Make exceptions more specific and informative

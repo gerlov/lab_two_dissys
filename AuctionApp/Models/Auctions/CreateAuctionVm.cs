@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
+using AuctionApp.Core;
 
 namespace AuctionApp.Models.Auctions;
 
@@ -23,5 +24,15 @@ public class CreateAuctionVm
     [DataType(DataType.DateTime)]
     public DateTime endDate { get; set; }
     
+    public static CreateAuctionVm FromAuction(Auction auction)
+    {
+        return new CreateAuctionVm()
+        {
+            itemName = auction.itemName,
+            description = auction.description,
+            price = auction.price,
+            endDate = auction.endDate
+        };
+    }
     
 }

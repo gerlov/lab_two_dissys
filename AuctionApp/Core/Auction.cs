@@ -26,13 +26,12 @@ public class Auction
         this.endDate = endDate;
     }
 
-    public Auction(string itemName, double price, string description, DateTime endDate)
+    public Auction(string itemName, double price, string description, string sellerName, DateTime endDate)
     {
         this.itemName = itemName;
         this.price = price;
         this.description = description;
-        this.sellerName = "Hardcodius Namus"; //TODO: replace with Identity
+        this.sellerName = sellerName;
         this.endDate = endDate;
-
     }
 }
