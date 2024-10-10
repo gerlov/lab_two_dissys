@@ -7,95 +7,53 @@ namespace AuctionApp.Controllers
 {
     public class BidController : Controller
     {
-
-        private IBidService _bidService;
+        private readonly IBidService _bidService;
 
         public BidController(IBidService bidService)
         {
             this._bidService = bidService;
         }
-        // GET: BidController
+        
         public ActionResult Index()
         {
-
-            List<Bid> bids = _bidService.GetAllBidsByUserName("MockName");
-            List<BidVm> bidVms = new List<BidVm>();
-            foreach (var bid in bids) 
+            var userName = "Jo4r";
+            List<ListOfBids> listOfBids = _bidService.GetAllBidsList(userName);
+            List<ListOfBidsVm> listOfBidsVm = new List<ListOfBidsVm>();
+            
+            foreach (var list in listOfBids)
             {
-                bidVms.Add(BidVm.FromBid(bid));
+                listOfBidsVm.Add(ListOfBidsVm.FromProject(list));
             }
-            return View(bidVms);
+            return View(listOfBidsVm);
         }
 
-        // GET: BidController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var userName = "Jo4r";
+            ListOfBids listOfBids = _bidService.GetListById(id, userName);
+            if (listOfBids == null) return BadRequest();
+
+            ListDetailsVm detailsVm = ListDetailsVm.FromList(listOfBids);
+            return View(detailsVm);
+        }
+        
+        public ActionResult SetBidToWinner(int id)
+        {
+            bool success = _bidService.SetBidToWinner(id);
+            if (!success)
+                return NotFound();
+
+            return RedirectToAction("Index");
+        }
+        
+        public ActionResult SetBidToLoser(int id)
+        {
+            bool success = _bidService.SetBidToLoser(id);
+            if (!success)
+                return NotFound();
+
+            return RedirectToAction("Index");
         }
 
-        /*
-        // GET: BidController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: BidController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: BidController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: BidController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: BidController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: BidController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        */
     }
 }
