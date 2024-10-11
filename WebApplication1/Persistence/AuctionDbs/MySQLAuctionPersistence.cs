@@ -62,4 +62,13 @@ public class MySQLAuctionPersistence : IAuctionPersistence
         _dbContext.AuctionDbs.Add(auctionDb);
         _dbContext.SaveChanges();
     }
+
+    public void AddBid(Bid bid)
+    {
+        BidDb bidDb = _mapper.Map<BidDb>(bid);
+        //User should only be able to have 2 lists, with id 1 for Pending and 2 for Won bids, so here it would be set to 1
+        bidDb.BidListId = -1;
+        _dbContext.BidDbs.Add(bidDb);
+        _dbContext.SaveChanges();
+    }
 }

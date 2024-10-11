@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Core;
 using WebApplication1.Core.Interfaces;
 using WebApplication1.Models.Auction;
+using WebApplication1.Models.Bid;
 
 namespace WebApplication1.Controllers
 {
@@ -69,7 +70,6 @@ namespace WebApplication1.Controllers
         }
 
         
-        /*
         // GET: AuctionController/Edit/5
         public ActionResult Bid(int id, string userName)
         {
@@ -79,18 +79,26 @@ namespace WebApplication1.Controllers
         // POST: AuctionController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Bid(int id, CreateBidVm createBidVm)
+        public ActionResult Bid(int id, double highestBid, CreateBidVm createBidVm)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    if (highestBid < createBidVm.offer)
+                    {
+                        _auctionService.AddBid(createBidVm.offer, id, "SeedUserName");
+                        return RedirectToAction("Index");
+                    }
+                }
+                return View(createBidVm);
             }
             catch
             {
-                return View();
+                return View(createBidVm);
             }
         }
-        */
+    
         
         
         

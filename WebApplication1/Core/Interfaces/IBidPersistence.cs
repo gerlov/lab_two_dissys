@@ -4,6 +4,5 @@ public interface IBidPersistence
 {
     List<BidList> GetAllByUserName(string userName);
     BidList GetById(int bidListId, string userName);
-
     void AddList(string userName);
 }

@@ -61,7 +61,6 @@ public class MySQLBidListPersistence : IBidPersistence
 
     public void AddList(string userName)
     {
-        
         throw new NotImplementedException();
     }
 }

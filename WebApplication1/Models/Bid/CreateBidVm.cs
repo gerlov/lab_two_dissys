@@ -4,7 +4,10 @@ namespace WebApplication1.Models.Bid;
 
 public class CreateBidVm
 {
+    [ScaffoldColumn(false)]
+    public int Id { get; set; }
+
     [Required]
     [Display(Name = "Bid price")]
-    public double price { get; set; }
+    public double offer { get; set; }
 }

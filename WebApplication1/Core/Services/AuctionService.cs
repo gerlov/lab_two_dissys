@@ -13,7 +13,8 @@ public class AuctionService : IAuctionService
     }
     public void AddBid(double offer, int auctionId, string userName)
     {
-        throw new NotImplementedException();
+        Bid bid = new Bid(offer, auctionId, userName);
+        _auctionPersistence.AddBid(bid);
     }
 
     public void AddAuction(string itemName, double startPrice, string description, string userName, DateTime endDate)
