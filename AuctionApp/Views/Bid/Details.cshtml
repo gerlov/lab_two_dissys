@@ -1,0 +1,44 @@
+@model AuctionApp.Models.Bids.ListDetailsVm
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.Title</h1>
+
+<div>
+    <h4>Bids in "@Model.Title"</h4>
+    <hr />
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Offer</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var bid in Model.BidsVMs)
+        {
+            <tr>
+                <td>@bid.Name</td>
+                <td>@bid.Offer</td>
+                <td>
+                    @if (bid.isWinner)
+                    {
+                        <span class="text-success">Winner</span>
+                    }
+                    else
+                    {
+                        <span class="text-warning">Pending</span>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

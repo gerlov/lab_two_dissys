@@ -11,6 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<ListOfBidsDBContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("AuctionDbConnection")));
+
+builder.Services.AddScoped<IBidPersistence, MySqlBidPersistence>();
+
+//Dependency injection of service to controller
+builder.Services.AddScoped<IBidService, BidService>();
+
 builder.Services.AddScoped<IAuctionService, AuctionService>();
 
 builder.Services.AddScoped<IAuctionPersistence, MySqlAuctionPersistence>();

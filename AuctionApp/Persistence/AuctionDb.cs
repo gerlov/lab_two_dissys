@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AuctionApp.Core;
 
 namespace AuctionApp.Persistence;
 
@@ -24,6 +25,4 @@ public class AuctionDb
     [Required]
     [MaxLength(1024)]
     public string description { get; set; }
-    
-    //add list of bids
 }

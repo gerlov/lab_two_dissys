@@ -66,6 +66,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVjdGlvblxVc2VyQXVjdGlvbnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/shiha/Documents/Datateknik/Distsys/AuctionApp/AuctionApp/Views/Bid/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlkXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/shiha/Documents/Datateknik/Distsys/AuctionApp/AuctionApp/Views/Bid/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlkXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/shiha/Documents/Datateknik/Distsys/AuctionApp/AuctionApp/Views/Bid/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlkXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/shiha/Documents/Datateknik/Distsys/AuctionApp/AuctionApp/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
