@@ -7,6 +7,9 @@ public class AuctionDetailsVm
 {
     [ScaffoldColumn(false)]
     public int Id { get; set; }
+    [ScaffoldColumn(false)]
+    public double HighestBid { get; set; }
+    
     public string ItemName { get; set; }
     public string Description { get; set; }
     public string UserName { get; set; }
@@ -31,6 +34,15 @@ public class AuctionDetailsVm
         foreach (var bid in auction.Bids)
         {
             detailsVm.BidVms.Add(BidVm.FromBid(bid));
+        }
+        
+        if (detailsVm.BidVms.Any())
+        {
+            detailsVm.HighestBid = detailsVm.BidVms.Max(b => b.Amount);
+        }
+        else
+        {
+            detailsVm.HighestBid = detailsVm.StartPrice;
         }
 
         return detailsVm;

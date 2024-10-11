@@ -1,3 +1,4 @@
+using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Core;
 using WebApplication1.Core.Interfaces;
@@ -16,7 +17,7 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Index()
         {
-            List<BidList> bidLists = _bidService.GetAllByUserName("Joar");
+            List<BidList> bidLists = _bidService.GetAllByUserName("SeedUserName");
             List<BidListVm> bidListVms = new List<BidListVm>();
             foreach (var bidList in bidLists)
             {
@@ -27,14 +28,22 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Details(int id)
         {
-            BidList bidList = _bidService.GetById(id, "Joar");
-            if (bidList == null)
+            try
+            {
+                BidList bidList = _bidService.GetById(id, "SeedUserName");
+                if (bidList == null)
+                {
+                    return BadRequest();
+                }
+
+                BidListDetailsVm detailsVm = BidListDetailsVm.FromBidList(bidList);
+                return View(detailsVm);
+            }
+            catch (DataException e)
             {
                 return BadRequest();
             }
-
-            BidListDetailsVm detailsVm = BidListDetailsVm.FromBidList(bidList);
-            return View(detailsVm);
+            
         }
         
         

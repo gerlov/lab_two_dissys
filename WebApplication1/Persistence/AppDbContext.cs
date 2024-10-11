@@ -19,8 +19,9 @@ public class AppDbContext : DbContext
         {
             Id = -1,
             ItemName = "Seed",
-            Description = "Seed Data",
+            Description = "Seed Data Description",
             StartPrice = 9999,
+            UserName = "SeedUserNameForAuction",
             EndDate = DateTime.Now,
             BidDbs = new List<BidDb>()
         };
@@ -33,7 +34,7 @@ public class AppDbContext : DbContext
             UserName = "SeedUserName",
             BidDbs = new List<BidDb>()
         };
-        modelBuilder.Entity<AuctionDb>().HasData(bdb);
+        modelBuilder.Entity<BidListDb>().HasData(bdb);
 
         BidDb bidDb = new BidDb
         {
@@ -43,7 +44,7 @@ public class AppDbContext : DbContext
             AuctionId = adb.Id,
             BidListId = bdb.Id
         };
-        modelBuilder.Entity<AuctionDb>().HasData(bidDb);
+        modelBuilder.Entity<BidDb>().HasData(bidDb);
 
 
     }

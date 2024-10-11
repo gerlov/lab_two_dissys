@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Core.Interfaces;
 using WebApplication1.Core.Mock;
+using WebApplication1.Core.Services;
 using WebApplication1.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,9 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 //ADDED
-builder.Services.AddScoped<IBidService, MockBidService>();
-builder.Services.AddScoped<IAuctionService, MockAuctionService>();
-
+builder.Services.AddScoped<IBidPersistence, MySQLBidListPersistence>();
+builder.Services.AddScoped<IAuctionPersistence, MySQLAuctionPersistence>();
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddScoped<IBidService, BidListService>();
+builder.Services.AddScoped<IAuctionService, AuctionService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("ProjectDbConnection")));
 

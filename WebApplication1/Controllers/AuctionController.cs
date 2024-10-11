@@ -1,3 +1,4 @@
+using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Core;
 using WebApplication1.Core.Interfaces;
@@ -28,30 +29,57 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Details(int id)
         {
-            Auction auction = _auctionService.GetById(id, "Shihab");
-            if (auction == null) return BadRequest();
-
-            AuctionDetailsVm detailsVm = AuctionDetailsVm.FromAuction(auction);
-            return View(detailsVm);
+            try
+            {
+                Auction auction = _auctionService.GetById(id, "SeedUserNameForAuction");
+                if (auction == null) return BadRequest();
+                AuctionDetailsVm detailsVm = AuctionDetailsVm.FromAuction(auction);
+                return View(detailsVm);
+            }
+            catch (DataException e)
+            {
+                return BadRequest();
+            }
         }
-
-        
-        
-        
-        
-        
-        
-        
-        // GET: AuctionController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: AuctionController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CreateAuctionVm createAuctionVm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _auctionService.AddAuction(createAuctionVm.itemName, createAuctionVm.price,
+                        createAuctionVm.description, "SeedUserName", createAuctionVm.endDate);
+                    return RedirectToAction("Index");
+
+                }
+
+                return View(createAuctionVm);
+            }
+            catch
+            {
+                return View(createAuctionVm);
+            }
+        }
+
+        
+        /*
+        // GET: AuctionController/Edit/5
+        public ActionResult Bid(int id, string userName)
+        {
+            return View();
+        }
+
+        // POST: AuctionController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Bid(int id, CreateBidVm createBidVm)
         {
             try
             {
@@ -62,7 +90,13 @@ namespace WebApplication1.Controllers
                 return View();
             }
         }
-
+        */
+        
+        
+        
+        
+        
+        
         // GET: AuctionController/Edit/5
         public ActionResult Edit(int id)
         {
