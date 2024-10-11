@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using WebApplication1.Core.Interfaces;
 using WebApplication1.Core.Mock;
+using WebApplication1.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IBidService, MockBidService>();
 builder.Services.AddScoped<IAuctionService, MockAuctionService>();
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySQL(builder.Configuration.GetConnectionString("ProjectDbConnection")));
 
 
 
