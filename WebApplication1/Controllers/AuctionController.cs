@@ -76,28 +76,37 @@ namespace WebApplication1.Controllers
         }
 
         
-        // GET: AuctionController/Edit/5
-        public ActionResult Bid(int id, string userName)
+        public ActionResult Bid(int id, double highestBid)
         {
-            return View();
+            var createBidVm = new CreateBidVm
+            {
+                Id = id,
+                highestBid = highestBid
+            };
+
+            return View(createBidVm);
         }
 
         // POST: AuctionController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Bid(int id, double highestBid, CreateBidVm createBidVm)
+        public ActionResult Bid(int id, CreateBidVm createBidVm)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (highestBid < createBidVm.offer)
+                    if (createBidVm.offer > createBidVm.highestBid)
                     {
                         _auctionService.AddBid(createBidVm.offer, id, User.Identity.Name);
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Details", new { id = id });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Your bid must be higher than the current highest bid.");
                     }
                 }
-                return View(createBidVm);
+                return View("Bid", createBidVm);
             }
             catch
             {

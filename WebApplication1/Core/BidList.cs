@@ -3,7 +3,7 @@ namespace WebApplication1.Core;
 public class BidList
 {
     
-    private static int _nextId = 1;
+    /*private static int _nextId = 1;*/
 
     public int Id { get; set; }
     public string Title { get; set; }
@@ -13,7 +13,7 @@ public class BidList
 
     public BidList(string title, string userName)
     {
-        Id = _nextId++;
+        /*Id = _nextId++;*/
         Title = title;
         UserName = userName;
     }

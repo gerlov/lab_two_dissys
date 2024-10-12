@@ -6,6 +6,9 @@ public class CreateBidVm
 {
     [ScaffoldColumn(false)]
     public int Id { get; set; }
+    
+    [ScaffoldColumn(false)]
+    public double highestBid { get; set; }
 
     [Required]
     [Display(Name = "Bid price")]

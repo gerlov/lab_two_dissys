@@ -2,7 +2,7 @@ namespace WebApplication1.Core;
 
 public class Bid
 {
-    private static int _nextId = 1;
+    /*private static int _nextId = 1;*/
     public int Id { get; set; }
     public double Amount { get; set; }
     public int AuctionId { get; set; }
@@ -10,7 +10,7 @@ public class Bid
 
     public Bid(double amount, int auctionId, string userName)
     {
-        Id = _nextId++;
+        /*Id = _nextId++; */
         Amount = amount;
         AuctionId = auctionId;
         UserName = userName;

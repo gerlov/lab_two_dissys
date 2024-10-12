@@ -2,7 +2,7 @@ namespace WebApplication1.Core;
 
 public class Auction
 {
-    private static int _nextId = 1;
+    /*private static int _nextId = 1;*/
 
     public int Id { get; set; }
     public string ItemName { get; set; }
@@ -15,7 +15,7 @@ public class Auction
 
     public Auction(string itemName, double startPrice, string description, string userName, DateTime endDate)
     {
-        Id = _nextId++;
+        /*Id = _nextId++;*/
         ItemName = itemName;
         UserName = userName;
         Description = description;
