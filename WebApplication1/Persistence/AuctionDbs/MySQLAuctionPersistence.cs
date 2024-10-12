@@ -78,10 +78,20 @@ public class MySQLAuctionPersistence : IAuctionPersistence
 
     public void AddBid(Bid bid)
     {
-        BidDb bidDb = _mapper.Map<BidDb>(bid);
-        bidDb.BidListId = 1; // 1 for pending, 2 for won
-        _dbContext.BidDbs.Add(bidDb);
-        _dbContext.SaveChanges();
+        var pendingBidList = _dbContext.BidListDbs
+            .FirstOrDefault(bl => bl.UserName == bid.UserName && bl.Title == "Pending Bids");
+
+        if (pendingBidList != null)
+        {
+            BidDb bidDb = _mapper.Map<BidDb>(bid);
+            bidDb.BidListId = pendingBidList.Id;
+            _dbContext.BidDbs.Add(bidDb);
+            _dbContext.SaveChanges();
+        }
+        else
+        {
+            throw new InvalidOperationException("Pending Bids list not found for the user.");
+        }
     }
     
     public void ProcessEndedAuctions()
