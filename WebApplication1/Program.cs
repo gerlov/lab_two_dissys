@@ -3,6 +3,9 @@ using WebApplication1.Core.Interfaces;
 using WebApplication1.Core.Mock;
 using WebApplication1.Core.Services;
 using WebApplication1.Persistence;
+using Microsoft.AspNetCore.Identity;
+using WebApplication1.Areas.Identity.Data;
+using WebApplication1.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +20,8 @@ builder.Services.AddScoped<IBidService, BidListService>();
 builder.Services.AddScoped<IAuctionService, AuctionService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("ProjectDbConnection")));
-
+builder.Services.AddDefaultIdentity<WebApplication1User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<WebApplication1Context>();
+builder.Services.AddDbContext<WebApplication1Context>(options => options.UseMySQL(builder.Configuration.GetConnectionString("IdentityDbConnection")));
 
 
 
@@ -38,7 +42,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.MapRazorPages();
 app.UseRouting();
 
 app.UseAuthorization();

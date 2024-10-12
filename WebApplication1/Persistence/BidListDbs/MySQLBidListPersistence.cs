@@ -61,6 +61,25 @@ public class MySQLBidListPersistence : IBidPersistence
 
     public void AddList(string userName)
     {
-        throw new NotImplementedException();
+        var existingList = _dbContext.BidListDbs.FirstOrDefault(bl => bl.UserName == userName);
+
+        if (existingList == null)
+        {
+            BidListDb newBidList = new BidListDb
+            {
+                Id = 1, 
+                Title = "Pending Bids",
+                UserName = userName
+            };
+            BidListDb newBidList2 = new BidListDb
+            {
+                Id = 2, // Set the ID to 1
+                Title = "Winning Bids",
+                UserName = userName
+            };
+            _dbContext.BidListDbs.Add(newBidList);
+            _dbContext.BidListDbs.Add(newBidList2);
+            _dbContext.SaveChanges();
+        }
     }
 }

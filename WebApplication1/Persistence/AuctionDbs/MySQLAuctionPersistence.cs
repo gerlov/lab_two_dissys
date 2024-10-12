@@ -29,12 +29,12 @@ public class MySQLAuctionPersistence : IAuctionPersistence
         {
             Auction auction = _mapper.Map<Auction>(auctionDb);
 
-            foreach (BidDb bidDb in auctionDb.BidDbs)
+           /* foreach (BidDb bidDb in auctionDb.BidDbs)
             {
                 Bid bid = _mapper.Map<Bid>(bidDb);
                 auction.AddBid(bid);
             }
-
+            */
             result.Add(auction);
         }
 
@@ -66,8 +66,7 @@ public class MySQLAuctionPersistence : IAuctionPersistence
     public void AddBid(Bid bid)
     {
         BidDb bidDb = _mapper.Map<BidDb>(bid);
-        //User should only be able to have 2 lists, with id 1 for Pending and 2 for Won bids, so here it would be set to 1
-        bidDb.BidListId = -1;
+        bidDb.BidListId = 1; // 1 for pending, 2 for won
         _dbContext.BidDbs.Add(bidDb);
         _dbContext.SaveChanges();
     }

@@ -1,4 +1,5 @@
 using System.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Core;
 using WebApplication1.Core.Interfaces;
@@ -6,6 +7,8 @@ using WebApplication1.Models.BidList;
 
 namespace WebApplication1.Controllers
 {
+    
+    [Authorize]
     public class BidListController : Controller
     {
 
@@ -17,7 +20,11 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Index()
         {
-            List<BidList> bidLists = _bidService.GetAllByUserName("SeedUserName");
+            
+            _bidService.AddList(User.Identity.Name);
+            
+            
+            List<BidList> bidLists = _bidService.GetAllByUserName(User.Identity.Name);
             List<BidListVm> bidListVms = new List<BidListVm>();
             foreach (var bidList in bidLists)
             {
@@ -30,7 +37,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                BidList bidList = _bidService.GetById(id, "SeedUserName");
+                BidList bidList = _bidService.GetById(id, User.Identity.Name);
                 if (bidList == null)
                 {
                     return BadRequest();

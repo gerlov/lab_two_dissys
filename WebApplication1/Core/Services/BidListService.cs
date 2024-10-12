@@ -25,6 +25,6 @@ public class BidListService : IBidService
 
     public void AddList(string userName)
     {
-        throw new NotImplementedException();
+        _bidPersistence.AddList(userName);
     }
 }

@@ -1,4 +1,5 @@
 using System.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Core;
 using WebApplication1.Core.Interfaces;
@@ -7,19 +8,24 @@ using WebApplication1.Models.Bid;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class AuctionController : Controller
     {
 
         private IAuctionService _auctionService;
+        private IBidService _bidService;
 
-        public AuctionController(IAuctionService auctionService)
+        public AuctionController(IAuctionService auctionService, IBidService bidService)
         {
             _auctionService = auctionService;
+            _bidService = bidService;
         }
         
-        // GET: AuctionController
         public ActionResult Index()
         {
+            
+            _bidService.AddList(User.Identity.Name);
+            
             List<Auction> auctions = _auctionService.GetAllAuctions();
             List<AuctionVm> auctionVms = new List<AuctionVm>();
             foreach (var auction in auctions)
@@ -32,7 +38,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                Auction auction = _auctionService.GetById(id, "SeedUserNameForAuction");
+                Auction auction = _auctionService.GetById(id, User.Identity.Name);
                 if (auction == null) return BadRequest();
                 AuctionDetailsVm detailsVm = AuctionDetailsVm.FromAuction(auction);
                 return View(detailsVm);
@@ -56,7 +62,7 @@ namespace WebApplication1.Controllers
                 if (ModelState.IsValid)
                 {
                     _auctionService.AddAuction(createAuctionVm.itemName, createAuctionVm.price,
-                        createAuctionVm.description, "SeedUserName", createAuctionVm.endDate);
+                        createAuctionVm.description, User.Identity.Name, createAuctionVm.endDate);
                     return RedirectToAction("Index");
 
                 }
@@ -87,7 +93,7 @@ namespace WebApplication1.Controllers
                 {
                     if (highestBid < createBidVm.offer)
                     {
-                        _auctionService.AddBid(createBidVm.offer, id, "SeedUserName");
+                        _auctionService.AddBid(createBidVm.offer, id, User.Identity.Name);
                         return RedirectToAction("Index");
                     }
                 }
