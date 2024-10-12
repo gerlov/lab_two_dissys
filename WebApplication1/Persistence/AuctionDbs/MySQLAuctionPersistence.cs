@@ -83,4 +83,47 @@ public class MySQLAuctionPersistence : IAuctionPersistence
         _dbContext.BidDbs.Add(bidDb);
         _dbContext.SaveChanges();
     }
+    
+    public void ProcessEndedAuctions()
+    {
+        var endedAuctions = _dbContext.AuctionDbs
+            .Where(a => a.EndDate < DateTime.Now)
+            .Include(a => a.BidDbs)
+            .ToList();
+
+        foreach (var auction in endedAuctions)
+        {
+            if (auction.BidDbs.Any())
+            {
+                var highestBid = auction.BidDbs.OrderByDescending(b => b.Amount).FirstOrDefault();
+
+                if (highestBid != null)
+                {
+                    var winningList = _dbContext.BidListDbs
+                        .FirstOrDefault(bl => bl.UserName == highestBid.UserName && bl.Title == "Winning Bids");
+
+                    if (winningList == null)
+                    {
+                        winningList = new BidListDb
+                        {
+                            Title = "Winning Bids",
+                            UserName = highestBid.UserName
+                        };
+                        _dbContext.BidListDbs.Add(winningList);
+                        _dbContext.SaveChanges(); 
+                    }
+
+                    highestBid.BidListId = winningList.Id;
+                    _dbContext.BidDbs.Update(highestBid);
+
+                    var losingBids = auction.BidDbs.Where(b => b.Id != highestBid.Id).ToList();
+                    _dbContext.BidDbs.RemoveRange(losingBids);
+                }
+            }
+        }
+
+        _dbContext.SaveChanges();
+    }
+
+
 }

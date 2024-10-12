@@ -6,6 +6,6 @@ public interface IAuctionPersistence
     Auction GetById(int auctionId, string userName);
     void UpdateAuction(int auctionId, string userName, string newDescription);
     void SaveAuction(Auction auction);
-
+    public void ProcessEndedAuctions();
     void AddBid(Bid bid);
 }

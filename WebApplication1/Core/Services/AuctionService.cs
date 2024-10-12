@@ -36,6 +36,11 @@ public class AuctionService : IAuctionService
         throw new NotImplementedException();
     }
 
+    public void ProcessEndedAuctions()
+    {
+        _auctionPersistence.ProcessEndedAuctions();
+    }
+
 
     public Auction GetById(int auctionId, string userName)
     {

@@ -23,7 +23,7 @@ namespace WebApplication1.Controllers
         
         public ActionResult Index()
         {
-            
+            _auctionService.ProcessEndedAuctions();
             _bidService.AddList(User.Identity.Name);
             
             List<Auction> auctions = _auctionService.GetAllAuctions();

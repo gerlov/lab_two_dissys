@@ -11,13 +11,13 @@ public class MySQLBidListPersistence : IBidPersistence
 {
     private readonly AppDbContext _dbContext;
     private readonly IMapper _mapper;
-    
+
     public MySQLBidListPersistence(AppDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;
     }
-    
+
     //Maybe wont fetch the bids here tbf, but we'll see
     public List<BidList> GetAllByUserName(string userName)
     {
@@ -37,6 +37,7 @@ public class MySQLBidListPersistence : IBidPersistence
                 Bid bid = _mapper.Map<Bid>(bidDb);
                 bidList.AddBid(bid);
             }
+
             result.Add(bidList);
         }
 
@@ -61,25 +62,31 @@ public class MySQLBidListPersistence : IBidPersistence
 
     public void AddList(string userName)
     {
-        var existingList = _dbContext.BidListDbs.FirstOrDefault(bl => bl.UserName == userName);
+        var pendingList = _dbContext.BidListDbs
+            .FirstOrDefault(bl => bl.UserName == userName && bl.Title == "Pending Bids");
+        var winningList = _dbContext.BidListDbs
+            .FirstOrDefault(bl => bl.UserName == userName && bl.Title == "Winning Bids");
 
-        if (existingList == null)
+        if (pendingList == null)
         {
-            BidListDb newBidList = new BidListDb
+            BidListDb newPendingList = new BidListDb
             {
-                Id = 1, 
                 Title = "Pending Bids",
                 UserName = userName
             };
-            BidListDb newBidList2 = new BidListDb
+            _dbContext.BidListDbs.Add(newPendingList);
+        }
+
+        if (winningList == null)
+        {
+            BidListDb newWinningList = new BidListDb
             {
-                Id = 2, // Set the ID to 1
                 Title = "Winning Bids",
                 UserName = userName
             };
-            _dbContext.BidListDbs.Add(newBidList);
-            _dbContext.BidListDbs.Add(newBidList2);
-            _dbContext.SaveChanges();
+            _dbContext.BidListDbs.Add(newWinningList);
         }
+
+        _dbContext.SaveChanges();
     }
 }

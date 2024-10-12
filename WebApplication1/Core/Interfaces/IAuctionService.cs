@@ -7,7 +7,7 @@ public interface IAuctionService
     List<Auction> GetAllAuctions();
 
     public void UpdateAuction(int auctionId, string userName, string newDescription);
-
+    public void ProcessEndedAuctions();
     Auction GetById(int auctionId, string userName);
     
     
