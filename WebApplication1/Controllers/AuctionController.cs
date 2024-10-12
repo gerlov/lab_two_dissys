@@ -113,34 +113,46 @@ namespace WebApplication1.Controllers
                 return View(createBidVm);
             }
         }
-    
         
-        
-        
-        
-        
-        
-        // GET: AuctionController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Auction auction = _auctionService.GetById(id, User.Identity.Name);
+            if (auction == null) return BadRequest();
+
+            EditDescriptionVm editVm = new EditDescriptionVm
+            {
+                Id = auction.Id,
+                description = auction.Description
+            };
+
+            return View(editVm); 
         }
 
-        // POST: AuctionController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, EditDescriptionVm editDescriptionVm)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _auctionService.UpdateAuction(id, User.Identity.Name, editDescriptionVm.description);
+                    return RedirectToAction("Details", new { id = id });
+                }
+
+                return View(editDescriptionVm); 
             }
             catch
             {
-                return View();
+                return View(editDescriptionVm); 
             }
         }
 
+
+        
+        
+        
+        
         // GET: AuctionController/Delete/5
         public ActionResult Delete(int id)
         {

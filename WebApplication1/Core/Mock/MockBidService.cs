@@ -2,7 +2,7 @@ using WebApplication1.Core.Interfaces;
 
 namespace WebApplication1.Core.Mock;
 
-public class MockBidService : IBidService
+public class MockBidService
 {
     public List<BidList> GetAllByUserName(string userName)
     {

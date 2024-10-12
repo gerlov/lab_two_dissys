@@ -2,7 +2,7 @@ using WebApplication1.Core.Interfaces;
 
 namespace WebApplication1.Core.Mock;
 
-public class MockAuctionService : IAuctionService
+public class MockAuctionService
 {
     public void AddBid(double offer, int auctionId, string userName)
     {

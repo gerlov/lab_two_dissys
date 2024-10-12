@@ -58,6 +58,17 @@ public class MySQLAuctionPersistence : IAuctionPersistence
         return auction;
     }
 
+    public void UpdateAuction(int auctionId, string userName, string newDescription)
+    {
+        var auctionDb = _dbContext.AuctionDbs.FirstOrDefault(a => a.Id == auctionId && a.UserName == userName);
+    
+        if (auctionDb == null) throw new DataException("Auction not found or not owned by the current user.");
+
+        auctionDb.Description = newDescription;
+
+        _dbContext.SaveChanges();
+    }
+
     public void SaveAuction(Auction auction)
     {
         AuctionDb auctionDb = _mapper.Map<AuctionDb>(auction);

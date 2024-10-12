@@ -30,10 +30,12 @@ public class AuctionService : IAuctionService
         return auctions;
     }
 
-    public List<Bid> GetAllBids(int auctionId)
+    public void UpdateAuction(int auctionId, string userName, string newDescription)
     {
+        _auctionPersistence.UpdateAuction(auctionId, userName, newDescription);
         throw new NotImplementedException();
     }
+
 
     public Auction GetById(int auctionId, string userName)
     {
