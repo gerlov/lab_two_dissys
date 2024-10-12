@@ -80,8 +80,13 @@
     </table>
 </div>
 
-@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-@Html.ActionLink("Bid", "Bid", new { id = Model.Id, highestBid = Model.HighestBid  })
-
+@if (Model.UserName == User.Identity.Name)
+{
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+}
+else
+{
+    @Html.ActionLink("Bid", "Bid", new { id = Model.Id, highestBid = Model.HighestBid })
+}
 
 <a asp-action="Index">Back to List</a>

@@ -27,6 +27,7 @@ public class AuctionDetailsVm
         {
             Id = auction.Id,
             ItemName = auction.ItemName,
+            UserName = auction.UserName,
             Description = auction.Description,
             StartPrice = auction.StartPrice,
             EndDate = auction.EndDate
