@@ -55,52 +55,6 @@ namespace WebApplication1.Controllers
         
         
         
-        
-        
-        
-
-        // GET: BidListController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: BidListController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: BidListController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: BidListController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: BidListController/Delete/5
         public ActionResult Delete(int id)
         {

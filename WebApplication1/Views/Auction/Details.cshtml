@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    bool auctionEnded = Model.EndDate < DateTime.Now;
 }
 
 <h1>Details</h1>
@@ -80,13 +81,17 @@
     </table>
 </div>
 
-@if (Model.UserName == User.Identity.Name)
+@if (!auctionEnded)
 {
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+    @if (Model.UserName == User.Identity.Name)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+    }
+    else
+    {
+        @Html.ActionLink("Bid", "Bid", new { id = Model.Id, highestBid = Model.HighestBid })
+    }
 }
-else
-{
-    @Html.ActionLink("Bid", "Bid", new { id = Model.Id, highestBid = Model.HighestBid })
-}
+
 
 <a asp-action="Index">Back to List</a>

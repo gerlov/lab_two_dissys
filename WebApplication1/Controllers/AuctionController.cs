@@ -147,9 +147,12 @@ namespace WebApplication1.Controllers
                 return View(editDescriptionVm); 
             }
         }
-
-
         
+        
+        public ActionResult WonAuction(int id)
+        {
+            return RedirectToAction("Details", new { id = id });
+        }
         
         
         

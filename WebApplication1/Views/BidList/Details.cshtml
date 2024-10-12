@@ -39,6 +39,7 @@
             <th>Auction</th>
             <th>User</th>
             <th>Amount</th>
+
         </tr>
         </thead>
         <tbody>
@@ -46,7 +47,9 @@
         {
             <tr>
                 <td>@bid.Id</td>
-                <td>@bid.AuctionId</td>
+                <td>
+                    @Html.ActionLink("View Auction", "WonAuction", "Auction", new { id = bid.AuctionId }, null)
+                </td>
                 <td>@bid.UserName</td>
                 <td>@bid.Amount</td>
             </tr>
@@ -55,5 +58,4 @@
     </table>
 </div>
 
-@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
 <a asp-action="Index">Back to List</a>
