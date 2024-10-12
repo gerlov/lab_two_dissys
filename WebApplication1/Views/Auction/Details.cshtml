@@ -38,7 +38,7 @@
             @Html.DisplayNameFor(model => model.EndDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EndDate)
+            @String.Format("{0:yyyy-MM-dd HH:mm}", Model.EndDate)
         </dd>
     </dl>
 </div>
@@ -67,14 +67,14 @@
             </dd>
         </tr>
 
-        @foreach (var bid in Model.BidVms)
+        @foreach (var bid in Model.BidVms.OrderByDescending(b => b.Amount))
         {
-            <tr>
-                <td>@bid.Id</td>
-                <td>@bid.AuctionId</td>
-                <td>@bid.UserName</td>
-                <td>@bid.Amount</td>
-            </tr>
+        <tr>
+            <td>@bid.Id</td>
+            <td>@bid.AuctionId</td>
+            <td>@bid.UserName</td>
+            <td>@bid.Amount</td>
+        </tr>
         }
         </tbody>
     </table>

@@ -46,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.StartPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
+                @String.Format("{0:yyyy-MM-dd HH:mm}", item.EndDate)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

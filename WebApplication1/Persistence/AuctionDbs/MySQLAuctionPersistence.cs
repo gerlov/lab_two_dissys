@@ -20,8 +20,10 @@ public class MySQLAuctionPersistence : IAuctionPersistence
     public List<Auction> GetAllAuctions()
     {
         var auctionDbs = _dbContext.AuctionDbs
+            .Where(a => a.EndDate > DateTime.Now)
             .Include(a => a.BidDbs)
             .ToList();
+        
 
         List<Auction> result = new List<Auction>();
 
