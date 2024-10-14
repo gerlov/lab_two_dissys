@@ -1,3 +1,5 @@
+/*
+
 using System.Data;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -90,3 +92,5 @@ public class MySQLBidListPersistence : IBidPersistence
         _dbContext.SaveChanges();
     }
 }
+
+*/

@@ -1,11 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Core.Interfaces;
-using WebApplication1.Core.Mock;
 using WebApplication1.Core.Services;
 using WebApplication1.Persistence;
-using Microsoft.AspNetCore.Identity;
 using WebApplication1.Areas.Identity.Data;
 using WebApplication1.Data;
+using WebApplication1.Persistence.GenericRepos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 //ADDED
+builder.Services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
 builder.Services.AddScoped<IBidPersistence, MySQLBidListPersistence>();
 builder.Services.AddScoped<IAuctionPersistence, MySQLAuctionPersistence>();
 builder.Services.AddAutoMapper(typeof(Program));

@@ -1,3 +1,5 @@
+
+/*
 using System.Data;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -30,13 +32,6 @@ public class MySQLAuctionPersistence : IAuctionPersistence
         foreach (AuctionDb auctionDb in auctionDbs)
         {
             Auction auction = _mapper.Map<Auction>(auctionDb);
-
-           /* foreach (BidDb bidDb in auctionDb.BidDbs)
-            {
-                Bid bid = _mapper.Map<Bid>(bidDb);
-                auction.AddBid(bid);
-            }
-            */
             result.Add(auction);
         }
 
@@ -137,3 +132,5 @@ public class MySQLAuctionPersistence : IAuctionPersistence
 
 
 }
+
+*/
