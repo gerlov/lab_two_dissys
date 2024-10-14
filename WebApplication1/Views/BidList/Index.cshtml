@@ -1,14 +1,12 @@
 @model IEnumerable<WebApplication1.Models.BidList.BidListVm>
 
 @{
-    ViewData["Title"] = "UserLists";
+    ViewData["Title"] = "My auction overview";
 }
 
-<h1>UserLists</h1>
+<h1>My auction overview</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -31,7 +29,7 @@
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id}) |
+                @Html.ActionLink("View list", "Details", new { id = item.Id}) |
             </td>
         </tr>
 }
