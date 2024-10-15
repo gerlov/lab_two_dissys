@@ -44,13 +44,17 @@ namespace WebApplication1.Persistence.GenericRepos
             return result;
         }
 
-        public Auction GetById(int auctionId, string userName)
+        public Auction GetById(int auctionId)
         {
+            /*
+              AuctionDb auctionDb = _auctionRepository.GetById(auctionId);
+             */
+
             AuctionDb auctionDb = _auctionRepository.GetAll()
                 .Where(p => p.Id == auctionId)
                 .Include(p => p.BidDbs)
                 .FirstOrDefault();
-
+            
             if (auctionDb == null) throw new DataException("Auction not found");
 
             Auction auction = _mapper.Map<Auction>(auctionDb);

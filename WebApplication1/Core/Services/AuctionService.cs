@@ -42,9 +42,9 @@ public class AuctionService : IAuctionService
     }
 
 
-    public Auction GetById(int auctionId, string userName)
+    public Auction GetById(int auctionId)
     {
-        Auction auction = _auctionPersistence.GetById(auctionId, userName);
+        Auction auction = _auctionPersistence.GetById(auctionId);
         return auction;
     }
 }

@@ -38,7 +38,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                Auction auction = _auctionService.GetById(id, User.Identity.Name);
+                Auction auction = _auctionService.GetById(id);
                 if (auction == null) return BadRequest();
                 AuctionDetailsVm detailsVm = AuctionDetailsVm.FromAuction(auction);
                 return View(detailsVm);
@@ -116,7 +116,7 @@ namespace WebApplication1.Controllers
         
         public ActionResult Edit(int id)
         {
-            Auction auction = _auctionService.GetById(id, User.Identity.Name);
+            Auction auction = _auctionService.GetById(id);
             if (auction == null) return BadRequest();
 
             EditDescriptionVm editVm = new EditDescriptionVm
