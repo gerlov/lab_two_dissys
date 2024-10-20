@@ -1,0 +1,57 @@
+@model IEnumerable<WebApplication1.Models.Auction.AuctionVm>
+
+@{
+    ViewData["Title"] = "All current auctions";
+}
+
+<h1>All current auctions</h1>
+
+<p>
+    <a asp-action="Create">Create Auction</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.OrderBy(item => item.EndDate)) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartPrice)
+            </td>
+            <td>
+                @String.Format("{0:yyyy-MM-dd HH:mm}", item.EndDate)
+            </td>
+            <td>
+                @Html.ActionLink("View Auction", "Details", new { id =item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

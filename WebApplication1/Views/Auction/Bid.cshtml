@@ -1,0 +1,36 @@
+@model WebApplication1.Models.Bid.CreateBidVm
+
+@{
+ViewData["Title"] = "Bid";
+}
+
+<h1>Bid</h1>
+
+<h4>CreateBidVm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Bid">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label>Current Highest Bid: @Model.highestBid</label>
+                <input type="hidden" asp-for="highestBid" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="offer" class="control-label"></label>
+                <input asp-for="offer" class="form-control" />
+                <span asp-validation-for="offer" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Place Bid" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
