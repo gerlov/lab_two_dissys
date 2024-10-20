@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\shiha\\Documents\\Datateknik\\Distsys\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {}
+    "C:\\Users\\Joar Gerlöv\\Documents\\Github\\Dissys\\Lab2\\lab_two_dissys\\WebApplication1\\WebApplication1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\shiha\\Documents\\Datateknik\\Distsys\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {
+    "C:\\Users\\Joar Gerlöv\\Documents\\Github\\Dissys\\Lab2\\lab_two_dissys\\WebApplication1\\WebApplication1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\shiha\\Documents\\Datateknik\\Distsys\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+        "projectUniqueName": "C:\\Users\\Joar Gerlöv\\Documents\\Github\\Dissys\\Lab2\\lab_two_dissys\\WebApplication1\\WebApplication1.csproj",
         "projectName": "WebApplication1",
-        "projectPath": "C:\\Users\\shiha\\Documents\\Datateknik\\Distsys\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
-        "packagesPath": "C:\\Users\\shiha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\shiha\\Documents\\Datateknik\\Distsys\\WebApplication1\\WebApplication1\\obj\\",
+        "projectPath": "C:\\Users\\Joar Gerlöv\\Documents\\Github\\Dissys\\Lab2\\lab_two_dissys\\WebApplication1\\WebApplication1.csproj",
+        "packagesPath": "C:\\Users\\Joar Gerlöv\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Joar Gerlöv\\Documents\\Github\\Dissys\\Lab2\\lab_two_dissys\\WebApplication1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\shiha\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Joar Gerlöv\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -93,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\shiha\\.dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

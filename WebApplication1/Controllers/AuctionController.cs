@@ -13,18 +13,14 @@ namespace WebApplication1.Controllers
     {
 
         private IAuctionService _auctionService;
-        //private IBidService _bidService;
 
         public AuctionController(IAuctionService auctionService/*, IBidService bidService*/)
         {
             _auctionService = auctionService;
-            //_bidService = bidService;
         }
         
         public ActionResult Index()
         {
-            //_auctionService.ProcessEndedAuctions();
-            //_bidService.AddList(User.Identity.Name);
             
             List<Auction> auctions = _auctionService.GetAllAuctions();
             List<AuctionVm> auctionVms = new List<AuctionVm>();

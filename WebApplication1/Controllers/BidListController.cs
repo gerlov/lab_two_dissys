@@ -25,7 +25,6 @@ namespace WebApplication1.Controllers
         public ActionResult Index()
         {
             
-            //_bidService.AddList(User.Identity.Name);
             
             // Check which pending bids for user are on closed auctions, and process them accordingly 
             IEnumerable<Bid> pendingBids = _bidService.GetAllByUserName(User.Identity.Name).First(bl => bl.Title == "Pending Bids").Bids;
